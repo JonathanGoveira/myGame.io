@@ -1,0 +1,18 @@
+{
+  "name": "mygame",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-loader": "*",
+    "typescript": "3.7.2",
+    "webpack": "*",
+    "webpack-cli": "^3.3.10"
+  },
+  "scripts": {
+    "webpack": "webpack --mode production --config ./Compile/Webpack/dev.config.js",
+    "webpack-dev": "webpack --watch --mode development --config ./Compile/Webpack/dev.config.js"
+  }
+}
