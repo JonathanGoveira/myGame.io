@@ -4,6 +4,7 @@ import Support from "./support"
 import Scene from "./scene"
 import Defender from "./defender"
 import Vector2D from "./utils/vectors"
+import backGround from "./backgroud"
 
 export default class Game{
     //
@@ -61,7 +62,11 @@ export default class Game{
     };
     public Render(){
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.save();
+        this.ctx.translate(0,0);
+        backGround(this.canvas, this.ctx);
         this.pl.Draw();
+        this.ctx.restore()
     };
     
     public Loop(){
