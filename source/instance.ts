@@ -10,4 +10,12 @@ export default class Instance{
         this.width = p_w;
         this.height = p_h;
     }
+
+    get x(){
+        return this.position.x;
+    }
+
+    get y(){
+        return this.position.y;
+    }
 }

@@ -1,6 +1,7 @@
 import * as math from "./utils/math"
 import Instance from "./instance"
 import Vector2D from "./utils/vectors";
+
 export default class Support extends Instance{
     private ctx: CanvasRenderingContext2D;
     public key: any;
