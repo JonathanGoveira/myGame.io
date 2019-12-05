@@ -1,13 +1,12 @@
-import * as math from "./utils/math"
+import * as math from "../Utils/math"
 import Instance from "./instance"
-import Vector2D from "./utils/vectors";
-
-export default class Support extends Instance{
+import Vector2D from "../Utils/vectors";
+export default class Defender extends Instance{
     private ctx: CanvasRenderingContext2D;
     public key: any;
 
-    constructor(p_position: Vector2D, p_w: number, p_h: number, p_ctx: CanvasRenderingContext2D){
-        super(p_position,p_w,p_h)
+    constructor(p_position: Vector2D,p_w: number,p_h: number,p_ctx: CanvasRenderingContext2D){
+        super(p_position,p_w,p_h);
         this.ctx = p_ctx;
     };
 
@@ -30,7 +29,7 @@ export default class Support extends Instance{
     public Update(){};
 
     public Render(){
-        this.ctx.fillStyle = "green";
+        this.ctx.fillStyle = "black";
         this.ctx.save();
         this.ctx.translate(this.position.x, this.position.y);
         this.ctx.rotate(math.RadToDegree(this.angle));

@@ -1,6 +1,6 @@
-import Vector2D from "./utils/vectors";
+import Vector2D from "../Utils/vectors";
 
-export default class BackGround {
+export default class Background {
     private _x: number;
     private _y: number;
     private _width: number;
@@ -13,7 +13,7 @@ export default class BackGround {
         this._height = p_height;
     }
 
-    createBackGround(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
+    public CreateBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
         // faz as linhas no eixo y
         for (let y = 0; y <= this._width; y += 40) {
             ctx.beginPath();

@@ -1,4 +1,4 @@
-import Vector2D from "./utils/vectors"
+import Vector2D from "../Utils/vectors"
 export default class Instance{
     protected position: Vector2D;
     protected width: number;

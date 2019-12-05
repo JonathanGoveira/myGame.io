@@ -1,3 +1,8 @@
 node_modules/
 .vscode/
 .git/
+Builds/SourceMap/
+Builds/main.js
+Source/*.js
+Source/**/*.js
+package-lock.json

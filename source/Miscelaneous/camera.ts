@@ -1,4 +1,4 @@
-import backGround from "./backgroud";
+import Background from "./background";
 
 export default class Camera{
     private _x: number;
@@ -13,7 +13,7 @@ export default class Camera{
         this._height = p_height;
     }
 
-    public centerCamera(background: backGround){
+    public centerCamera(background: Background){
         this._x = (background.width - Number(this._width))/2;
         this._y = (background.height - Number(this._height))/2;
     }

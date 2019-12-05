@@ -1,7 +1,7 @@
-import * as math from "./utils/math"
+import * as math from "../Utils/math"
 import Instance from "./instance"
-import Vector2D from "./utils/vectors";
-export default class Defender extends Instance{
+import Vector2D from "../Utils/vectors";
+export default class Attacker extends Instance{
     private ctx: CanvasRenderingContext2D;
     public key: any;
 
@@ -29,12 +29,11 @@ export default class Defender extends Instance{
     public Update(){};
 
     public Render(){
-        this.ctx.fillStyle = "black";
+        this.ctx.fillStyle = "red";
         this.ctx.save();
         this.ctx.translate(this.position.x, this.position.y);
         this.ctx.rotate(math.RadToDegree(this.angle));
         this.ctx.fillRect(this.width / -2, this.height / -2, this.width, this.height);
         this.ctx.restore();
-    
     };
 }
