@@ -12,10 +12,10 @@ export default class Player{
     };
 
     public limitsPlayer(background: Background){
-        if (this.x < 0) this.x = 0;
-        if (this.x + this.classe.width > background.width) this.x = background.width - this.classe.width;
-        if (this.y < 0) this.y = 0;
-        if (this.y + this.classe.height > background.height) this.y = background.height - this.classe.height;
+        if ((this.x - this.classe.width/2) < 0) this.x = (this.classe.width/2);
+        if (this.x + this.classe.width/2 > background.width) this.x = background.width - this.classe.width/2;
+        if ((this.y - this.classe.height/2) < 0) this.y = this.classe.height/2;
+        if (this.y + this.classe.height/2 > background.height) this.y = background.height - this.classe.height/2;
     }
 
     get x(){

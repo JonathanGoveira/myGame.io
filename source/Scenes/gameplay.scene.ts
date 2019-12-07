@@ -17,10 +17,10 @@ export default class SceneGameplay extends AbstractScene{
         super();
         this._canvas = p_canvas;
         this._ctx = p_ctx;
-        this._backGround = new Background(0,0,this._canvas.width * 3, this._canvas.height * 3);
+        this._backGround = new Background(0,0,this._canvas.width * 3 , this._canvas.height * 3 );
         this._camera = new Camera(this._canvas.width, this._canvas.height);
         this._camera.centerCamera(this._backGround);
-        this._player1 = new Player(new Attacker(new Vector2D(this._camera.width * 0.5, this._camera.height * 0.5),50, 50, this._ctx));
+        this._player1 = new Player(new Attacker(new Vector2D((this._camera.width * 0.50),(this._camera.height * 0.50)),50, 50, this._ctx));
 
         window.addEventListener("keydown", (ev: Event) => {
             //@ts-ignore
