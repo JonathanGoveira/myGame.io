@@ -27,7 +27,7 @@ export default class KeyboardManager{
     /**
      * Update all keyboard keys
      */
-    public Update(): void {
+    public Process(): void {
         for (let i = 0; i < KeyMax; i++){
             this._pressedState[i] = (!this._previousState[i]) && this._pressingState[i];
             this._releaseState[i] = this._previousState[i] && (!this._pressingState[i]);
@@ -40,25 +40,19 @@ export default class KeyboardManager{
      * @param p_keycode 
      * 
      */
-    public Key(p_keycode: Key): Boolean{
-        return this._pressingState[p_keycode];
-    };
+    public Key(p_keycode: Key): Boolean { return this._pressingState[p_keycode]; };
 
     /**
      * Return if a key has pressed one time
      * @param p_keycode 
      */
-    public KeyPressed(p_keycode: Key): Boolean { 
-        return this._pressedState[p_keycode];
-    };
+    public KeyPressed(p_keycode: Key): Boolean { return this._pressedState[p_keycode]; };
 
     /**
      * Return if a key has released one time
      * @param p_keycode 
      */
-    public KeyReleased(p_keycode: Key): Boolean {
-        return this._releaseState[p_keycode];
-    };
+    public KeyReleased(p_keycode: Key): Boolean { return this._releaseState[p_keycode]; };
 
 
 

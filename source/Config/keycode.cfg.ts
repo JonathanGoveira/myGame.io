@@ -129,8 +129,8 @@ export enum Key {
 export enum MB{
 
     Left = 0,
-    Middle = 0,
-    Right = 3
+    Middle = 1,
+    Right = 2
 
 }
 

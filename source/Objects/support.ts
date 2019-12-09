@@ -1,6 +1,6 @@
-import * as math from "../Utils/math"
 import Instance from "./instance"
 import Vector2D from "../Utils/vectors";
+import { math } from "../Utils/math";
 
 export default class Support extends Instance{
     private ctx: CanvasRenderingContext2D;
@@ -33,7 +33,7 @@ export default class Support extends Instance{
         this.ctx.fillStyle = "green";
         this.ctx.save();
         this.ctx.translate(this.position.x, this.position.y);
-        this.ctx.rotate(math.RadToDegree(this.angle));
+        this.ctx.rotate(math.angle.toDegree(this.angle));
         this.ctx.fillRect(this.width / -2, this.height / -2, this.width, this.height);
         this.ctx.restore();
     

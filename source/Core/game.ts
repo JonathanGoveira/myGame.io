@@ -7,7 +7,9 @@ import { Key } from '../Config/keycode.cfg';
 export default class Game{
 
     public canvas: HTMLCanvasElement;
-    public ctx: CanvasRenderingContext2D;
+    private ctx: CanvasRenderingContext2D;
+
+    private size: Array<number> = [];
 
     // //
     // pl!: Player;
@@ -25,8 +27,10 @@ export default class Game{
         // Create Canvas Element
         // ---------------------
         this.canvas = document.getElementById("canvas") as HTMLCanvasElement;       // Catch ID and create a canvas
-        this.canvas.width = document.documentElement.clientWidth;                   // Set canvas width to browser width
-        this.canvas.height = document.documentElement.clientHeight;                 // Set canvas width to browser Height
+        this.size[0] = document.documentElement.clientWidth;                        // Get browser width to global size array
+        this.size[1] = document.documentElement.clientHeight;                       // Get broser height to global size array
+        this.canvas.width  = this.size[0];                                          // Set canvas width to global size array
+        this.canvas.height = this.size[1];                                          // Set canvas height to global size array
 
         // Create Context for canvas
         // -------------------------
@@ -34,7 +38,8 @@ export default class Game{
 
         // Initialize Inputs
         // -----------------
-        InputManager.Initialize();                                                  // Set initial configuration for inputs
+        let canvasRect = this.canvas.getBoundingClientRect();                       // Get position in screen from canvas
+        InputManager.Initialize(canvasRect);                                        // Set initial configuration for inputs
 
         // Configure Basic Scenes
         // ----------------------
@@ -82,7 +87,8 @@ export default class Game{
     };
 
     public ProcessInput(){
-
+        InputManager.Keyboard.Process();
+        InputManager.Mouse.Process();
         Scene.Manager.HandleEvents();                                               // Catch Scene Input Events
 
         // this.pl.classe.Input();
@@ -100,7 +106,7 @@ export default class Game{
     };
 
     public Update(){
-        InputManager.Keyboard.Update();
+
         Scene.Manager.Update();                                                     // Update objects from scene
 
         if (InputManager.Keyboard.KeyReleased(Key.A)){
