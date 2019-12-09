@@ -14,8 +14,15 @@ export default class Camera{
     }
 
     public centerCamera(background: Background){
-        this._x = (background.width - Number(this._width))/2;
-        this._y = (background.height - Number(this._height))/2;
+        this._x = (background.width - (this._width))/2;
+        this._y = (background.height - (this._height))/2;
+    }
+
+    public limitsCamera(background: Background){
+        if (this.x < 0) this.x = 0;
+        if (this.x + this.width > background.width) this.x = background.width - this.width;
+        if (this.y < 0) this.y = 0;
+        if (this.y + this.height > background.height) this.y = background.height - this.height;
     }
 
     get width(){
