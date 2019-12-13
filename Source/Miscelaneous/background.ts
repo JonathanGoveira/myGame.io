@@ -1,4 +1,4 @@
-import Vector2D from "../Utils/vectors";
+import Vector2D from "../utils/vectors";
 
 export default class Background {
     private _x: number;

@@ -13,9 +13,17 @@ export default class Camera{
         this._height = p_height;
     }
 
-    public centerCamera(background: Background){
-        this._x = (background.width - (this._width))/2;
-        this._y = (background.height - (this._height))/2;
+    public centerCamera(object: any){
+        this._x = (object.x - (this._width)/2);
+        this._y = (object.y - (this._height)/2);
+    }
+
+    public lerp(start: number, end: number, amt: number){
+        return(1-amt)*start+amt*end
+    }
+    public lerpCamera(object: any){
+        this._x = this.lerp(this._x, object.x, 0.1)
+        this._y = this.lerp(this._y, object.y, 0.1)
     }
 
     public limitsCamera(background: Background){

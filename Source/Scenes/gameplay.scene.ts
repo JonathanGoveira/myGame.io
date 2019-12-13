@@ -3,7 +3,12 @@ import Background from "../Miscelaneous/background";
 import Player from "../Objects/player";
 import Camera from "../Miscelaneous/camera";
 import Attacker from "../Objects/attacker";
-import Vector2D from "../Utils/vectors";
+import Support from "../Objects/support";
+import Vector2D from "../utils/vectors";
+import InputManager from "../Input/manager.input";
+import { MB } from "../Config/keycode.cfg";
+import Defender from "../Objects/defender";
+
 
 export default class SceneGameplay extends AbstractScene{
 
@@ -11,16 +16,20 @@ export default class SceneGameplay extends AbstractScene{
     private _ctx: CanvasRenderingContext2D;
     private _backGround: Background;
     private _player1: Player;
+    private _player2: Player;
+    private _player3: Player;
     private _camera: Camera;
 
     constructor(p_canvas: HTMLCanvasElement,p_ctx: CanvasRenderingContext2D){
         super();
         this._canvas = p_canvas;
         this._ctx = p_ctx;
-        this._backGround = new Background(0,0,this._canvas.width * 3 , this._canvas.height * 3 );
+        this._backGround = new Background(0,0,2000, 2000);
         this._camera = new Camera(this._canvas.width, this._canvas.height);
-        this._camera.centerCamera(this._backGround);
-        this._player1 = new Player(new Attacker(new Vector2D((this._camera.width * 0.50),(this._camera.height * 0.50)),50, 50, this._ctx));
+        //this._camera.centerCamera(this._backGround);
+        this._player1 = new Player(new Attacker(this._ctx), this._camera.width * 0.5, this._camera.width * 0.5, 50,50)
+        this._player2 = new Player(new Defender(this._ctx),200,200,100,100)
+        this._player3 = new Player(new Support(this._ctx),300,300,70,70)
 
         window.addEventListener("keydown", (ev: Event) => {
             //@ts-ignore
@@ -49,7 +58,11 @@ export default class SceneGameplay extends AbstractScene{
     public Disable(): void {};
 
     public HandleEvent(): void {
-        this._player1.classe.Input();
+        this._player1.move();
+        this._player1.skills()
+        InputManager.Mouse.Process()
+        
+        //console.log("corno")
         // if(this.scene.key === 49){
         //     this.pl = new Player(new Attacker(new Vector2D(this.canvas.width * 0.5, this.canvas.height * 0.5),50, 50, this.ctx));
         // };
@@ -63,11 +76,15 @@ export default class SceneGameplay extends AbstractScene{
 
     public Update(): void {
         this._player1.Update();
+        if (InputManager.Mouse.Button(MB.Left)) {console.log("clickei")}
+        if (InputManager.Mouse.ButtonPressed(MB.Left)) {console.log("clickado")}
+        if (InputManager.Mouse.ButtonReleased(MB.Left)) {console.log("Desclickado")}
         // atualiza a posição da camera em relação ao player
-        this._camera.x = this._player1.classe.x - (this._camera.width/2);
-        this._camera.y = this._player1.classe.y - (this._camera.height/2);
+        
+        this._camera.centerCamera(this._player1);
         this._camera.limitsCamera(this._backGround);
         this._player1.limitsPlayer(this._backGround);
+        if(InputManager.Keyboard.Key(13)){this._camera.centerCamera(this._player2)}
     };
 
     public Render(): void {
@@ -75,6 +92,8 @@ export default class SceneGameplay extends AbstractScene{
         this._ctx.translate(-this._camera.x,-this._camera.y);
         this._backGround.CreateBackground(this._canvas, this._ctx);
         this._player1.Draw();
+        this._player2.Draw();
+        this._player3.Draw();
         this._ctx.restore()
     };
 
