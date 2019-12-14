@@ -1,6 +1,7 @@
 import Background from "../Miscelaneous/background";
 import Vector2D from "../utils/vectors";
 import InputManager from "../Input/manager.input";
+import { BaseStatus } from "../Miscelaneous/baseStatus";
 
 export default class Player{
     //@ts-ignore
@@ -8,13 +9,21 @@ export default class Player{
     private _position: Vector2D;
     private _size: Vector2D;
     private _angle: number = 0
+    public _status: BaseStatus = {speed: 0, armor: 0, life: 0, damage: 0, firerate: 0, mineral: 0}
     
 
-    constructor(p_classe: any,p_x: number, p_y: number, p_width: number, p_height: number){
+    constructor(p_classe: any,p_x: number, p_y: number, p_width: number, p_height: number, p_status: BaseStatus){
         
         this.classe = p_classe;
         this._position = new Vector2D(p_x,p_y)
         this._size = new Vector2D(p_width, p_height)
+        this._status = p_status
+        // this._status.speed = 100
+        // this._status.armor = 0
+        // this._status.damage = 0
+        // this._status.firerate = 0
+        // this._status.life = 0
+        // this._status.mineral = 0
 
     };
 
