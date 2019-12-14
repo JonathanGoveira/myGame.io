@@ -82,15 +82,9 @@ export default class SceneGameplay extends AbstractScene{
         if (InputManager.Mouse.ButtonPressed(MB.Left)) {console.log("clickado")}
         if (InputManager.Mouse.ButtonReleased(MB.Left)) {console.log("Desclickado")}
         // Shift + 1 ou 2 ou 3 retorna os baseStatus das classes
-        if(InputManager.Keyboard.Key(16)){
-            if (InputManager.Keyboard.Key(49))
-                console.log(this._player1._status)}
-        if(InputManager.Keyboard.Key(16)){
-            if (InputManager.Keyboard.Key(50))
-                console.log(this._player2._status)}
-        if(InputManager.Keyboard.Key(16)){
-            if (InputManager.Keyboard.Key(51))
-                console.log(this._player3._status)}
+        if(InputManager.Keyboard.Key(16) && InputManager.Keyboard.Key(49)){console.log(this._player1._status)}
+        if(InputManager.Keyboard.Key(16) && InputManager.Keyboard.Key(50)){console.log(this._player2._status)}
+        if(InputManager.Keyboard.Key(16) && InputManager.Keyboard.Key(51)){console.log(this._player3._status)}
         // atualiza a posição da camera em relação ao player
         
         this._camera.centerCamera(this._player1);

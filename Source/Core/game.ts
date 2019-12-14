@@ -32,7 +32,7 @@ export default class Game{
 
         // Configure Basic Scenes
         // ----------------------
-        let sceneMainMenu: SceneMainMenu = new SceneMainMenu(this.ctx);
+        let sceneMainMenu: SceneMainMenu = new SceneMainMenu(this.ctx, this.canvas);
         let sceneGameplay: SceneGameplay = new SceneGameplay(this.canvas, this.ctx);
         
         // Add scenes to SceneManager
