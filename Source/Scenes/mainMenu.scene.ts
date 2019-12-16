@@ -1,36 +1,58 @@
 import AbstractScene from "./Base/abstract.scene";
 import InputManager from "../Input/manager.input";
+import Game from "../Core/game";
+import Button from "../Miscelaneous/button";
+import Vector2D from "../Utils/vectors";
+import { math } from "../Utils/math";
+import { MB } from "../Config/keycode.cfg";
+import Scene from "./Base/manager.scene";
 
 export default class SceneMainMenu extends AbstractScene{
 
-    private ctx: CanvasRenderingContext2D;
-    private canvas: HTMLCanvasElement
+    private _buttons: { [Name: string]: Button } = {};
 
-    constructor(p_ctx: CanvasRenderingContext2D, p_canvas: HTMLCanvasElement){
+    constructor(){
         super();
-        this.ctx = p_ctx;
-        this.canvas = p_canvas
     };
 
-    public Create(): void {};
+    public Create(): void {
+
+        let pos = math.screen.toNormalize(new Vector2D((Game.Size.w / 2 - 250), Game.Size.h / 2));
+        let size = math.screen.toNormalize(new Vector2D(500, 64));
+        console.log(Game.Size)
+        this._buttons["Play"] = new Button(pos, size);
+
+    };
 
     public Destroy(): void {};
 
     public Enable(): void {};
     public Disable(): void {};
 
-    public HandleEvent(): void {};
+    public HandleEvent(): void {
+        InputManager.Mouse.Process();
+    };
     
-    public Update(): void {};
+    public Update(): void {
+
+        if (InputManager.Mouse.Enter(this._buttons["Play"]._position, this._buttons["Play"]._size)){
+            console.log("Enter button");
+            if (InputManager.Mouse.ButtonReleased(MB.Left)){
+                console.log("next room");
+                Scene.Manager.Switch("Gameplay");
+            }
+        }
+
+    };
     
     public Render(): void {
 
-        this.ctx.fillStyle = "blue";
-        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.fillStyle = "gold";
-        this.ctx.font = "50px Helvetica"
-        this.ctx.fillText("Você está na tela de menu",0,100,400)
-        this.ctx.fillText("Aperte S para ir para o jogo, ou M para voltar para o menu",0,200)
+        Game.ctx.fillStyle = "blue";
+        Game.ctx.fillRect(0, 0, 400, 400);
+        for (let k in this._buttons){
+            let i = this._buttons[k];
+            i.Render();
+        }
 
     };
 

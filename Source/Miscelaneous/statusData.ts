@@ -5,7 +5,8 @@ export let statusData = {
         "life": 300,
         "damage": 50,
         "firerate": 1.5,
-        "mineral": 0
+        "mineral": 0,
+        "sprite": "/nothing"
     },
 
     "Defender": {
@@ -14,7 +15,8 @@ export let statusData = {
         "life": 600,
         "damage": 30,
         "firerate": 0.7,
-        "mineral": 0
+        "mineral": 0,
+        "sprite": "/nothing"
     }, 
 
     "Support": {
@@ -23,6 +25,7 @@ export let statusData = {
         "life": 600,
         "damage": 30,
         "firerate": 1.0,
-        "mineral": 0
+        "mineral": 0,
+        "sprite": "/nothing"
     }
 }

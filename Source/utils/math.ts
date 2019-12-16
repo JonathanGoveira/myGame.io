@@ -1,3 +1,6 @@
+import Game from "../Core/game";
+import Vector2D from "./vectors";
+
 export namespace math{
 
     /**
@@ -32,10 +35,10 @@ export namespace math{
          * @param p_coord is a normalized array with two coordinates (X and Y)
          * @param p_screen is a maximum screen size array with two coordinates (Width and Height)
          */
-        export function toPixels(p_coord: Array<number>, p_screen: Array<number>): Array<number>{
-            let coord: Array<number> = [];
-            coord[0] = (p_screen[0] / 2) + (p_coord[0] * (p_screen[0] / 2));
-            coord[1] = (p_screen[1] / 2) + (p_coord[1] * (p_screen[1] / 2));
+        export function toPixels(p_coord: Vector2D): Vector2D{
+            let coord: Vector2D = new Vector2D(0, 0);
+            coord.x = Math.floor((Game.Size.w / 2) + (p_coord.x * (Game.Size.w / 2)));
+            coord.y = Math.floor((Game.Size.h / 2) + (p_coord.y * (Game.Size.h / 2)));
             return coord;
         };
 
@@ -44,10 +47,10 @@ export namespace math{
          * @param p_coord is a pixel screen array with two coordinates (X and Y)
          * @param p_screen is a maximum screen size array with two coordinates (Width and Height)
          */
-        export function toNormalize(p_coord: Array<number>, p_screen: Array<number>): Array<number>{
-            let coord: Array<number> = [];
-            coord[0] = ( (  p_coord[0] / p_screen[0] ) * 2) - 1;
-            coord[1] = ( ( (p_coord[1] / p_screen[1] ) + 1) * 2) - 1;
+        export function toNormalize(p_coord: Vector2D): Vector2D{
+            let coord: Vector2D = new Vector2D(0, 0);
+            coord.x = ( (  p_coord.x / Game.Size.w ) * 2) - 1;
+            coord.y = ( (  p_coord.y / Game.Size.h ) * 2) - 1;
             return coord;
         };
 

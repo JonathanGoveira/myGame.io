@@ -8,12 +8,11 @@ import InputManager from "../Input/manager.input";
 import { MB } from "../Config/keycode.cfg";
 import Defender from "../Objects/defender";
 import {statusData} from "../Miscelaneous/statusData"
+import Game from "../Core/game";
 
 
 export default class SceneGameplay extends AbstractScene{
 
-    private _canvas: HTMLCanvasElement;
-    private _ctx: CanvasRenderingContext2D;
     private _backGround: Background;
     private _player1: Player;
     private _player2: Player;
@@ -21,16 +20,14 @@ export default class SceneGameplay extends AbstractScene{
     private _camera: Camera;
     
 
-    constructor(p_canvas: HTMLCanvasElement,p_ctx: CanvasRenderingContext2D){
+    constructor(){
         super();
-        this._canvas = p_canvas;
-        this._ctx = p_ctx;
         this._backGround = new Background(0,0,2000, 2000);
-        this._camera = new Camera(this._canvas.width, this._canvas.height);
+        this._camera = new Camera(Game.Size.w, Game.Size.h);
         //this._camera.centerCamera(this._backGround);
-        this._player1 = new Player(new Attacker(this._ctx), this._camera.width * 0.5, this._camera.width * 0.5, 50,50, statusData.Attacker)
-        this._player2 = new Player(new Defender(this._ctx),200,200,100,100, statusData.Defender)
-        this._player3 = new Player(new Support(this._ctx),300,300,70,70, statusData.Support)
+        this._player1 = new Player(new Attacker(), statusData.Attacker);
+        this._player2 = new Player(new Defender(), statusData.Defender);
+        this._player3 = new Player(new Support(),  statusData.Support);
 
         window.addEventListener("keydown", (ev: Event) => {
             //@ts-ignore
@@ -59,9 +56,9 @@ export default class SceneGameplay extends AbstractScene{
     public Disable(): void {};
 
     public HandleEvent(): void {
+        InputManager.Mouse.Process()
         this._player1.move();
         this._player1.skills()
-        InputManager.Mouse.Process()
         
         //console.log("corno")
         // if(this.scene.key === 49){
@@ -94,13 +91,13 @@ export default class SceneGameplay extends AbstractScene{
     };
 
     public Render(): void {
-        this._ctx.save();
-        this._ctx.translate(-this._camera.x,-this._camera.y);
-        this._backGround.CreateBackground(this._canvas, this._ctx);
-        this._player1.Draw();
-        this._player2.Draw();
-        this._player3.Draw();
-        this._ctx.restore()
+        Game.ctx.save();
+        Game.ctx.translate(-this._camera.x,-this._camera.y);
+        this._backGround.CreateBackground();
+        this._player1.Render();
+        this._player2.Render();
+        this._player3.Render();
+        Game.ctx.restore();
     };
 
 

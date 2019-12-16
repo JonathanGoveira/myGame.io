@@ -5,4 +5,5 @@ export interface BaseStatus{
     damage: number;
     firerate: number;
     mineral: number;
+    sprite: string;
 }

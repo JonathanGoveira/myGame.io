@@ -61,5 +61,10 @@ export default class Vector2D{
     public set w(p_w: number){ this._x = p_w; };
     public set h(p_h: number){ this._y = p_h; };
 
+    public static get Zero(): Vector2D  { return new Vector2D(0, 0);  };
+    public static get Up(): Vector2D    { return new Vector2D(0, 1);  };
+    public static get Left(): Vector2D  { return new Vector2D(-1, 0); };
+    public static get Right(): Vector2D { return new Vector2D(1, 0);  };
+    public static get Down(): Vector2D  { return new Vector2D(0, -1); };
 
 };

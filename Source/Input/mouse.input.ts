@@ -1,5 +1,6 @@
-import Vector2D from "../utils/vectors";
+import Vector2D from "../Utils/vectors";
 import { MB } from "../Config/keycode.cfg";
+import { math } from "../Utils/math";
 
 
 export default class MouseManager{
@@ -80,8 +81,10 @@ export default class MouseManager{
 
     public Enter(p_pos: Vector2D, p_size: Vector2D): Boolean {
 
-        if (this._location.x > p_pos.x && this._location.x < p_pos.x + p_size.x &&
-            this._location.y > p_pos.y && this._location.y < p_pos.y + p_size.y){
+        let pos: Vector2D = math.screen.toPixels(p_pos);
+        let size: Vector2D = math.screen.toPixels(p_size);
+        if (this._location.x > pos.x && this._location.x < pos.x + size.x &&
+            this._location.y > pos.y && this._location.y < pos.y + size.y){
                 return true;
         }
         return false;

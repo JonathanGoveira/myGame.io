@@ -1,31 +1,28 @@
 import Background from "../Miscelaneous/background";
-import Vector2D from "../utils/vectors";
+import Vector2D from "../Utils/vectors";
 import InputManager from "../Input/manager.input";
 import { BaseStatus } from "../Miscelaneous/baseStatus";
+import Sprite from "../Miscelaneous/sprite";
+import { Key } from "../Config/keycode.cfg";
 
 export default class Player{
     //@ts-ignore
     public classe: any;
-    private _position: Vector2D;
-    private _size: Vector2D;
-    private _angle: number = 0
-    public _status: BaseStatus = {speed: 0, armor: 0, life: 0, damage: 0, firerate: 0, mineral: 0}
-    
+    private _sprite: Sprite;
+    public _status: BaseStatus;
 
-    constructor(p_classe: any,p_x: number, p_y: number, p_width: number, p_height: number, p_status: BaseStatus){
+    constructor(p_classe: any, p_status: BaseStatus){
         
         this.classe = p_classe;
-        this._position = new Vector2D(p_x,p_y)
-        this._size = new Vector2D(p_width, p_height)
-        this._status = p_status
-        // this._status.speed = 100
-        // this._status.armor = 0
-        // this._status.damage = 0
-        // this._status.firerate = 0
-        // this._status.life = 0
-        // this._status.mineral = 0
+        this._status = p_status;
+        this._sprite = new Sprite(this._status.sprite);
+        this._sprite.position = Vector2D.Zero;
+        this._sprite.size     = new Vector2D(0.2,0.2);
 
     };
+
+    public Update(){};
+    public Render(){ this._sprite.RenderRect("blue"); };
 
     public limitsPlayer(background: Background){
         if ((this.x - this.width/2) < 0) this.x = (this.width/2);
@@ -34,16 +31,18 @@ export default class Player{
         if (this.y + this.height/2 > background.height) this.y = background.height - this.height/2;
     }
 
-    public Draw(){
-        this.classe.Render(this);
-    };
 
-    public move(){
-        if(InputManager.Keyboard.Key(37)){this._position.x -= 5}
-        if(InputManager.Keyboard.Key(39)){this._position.x += 5}
-        if(InputManager.Keyboard.Key(38)){this._position.y -= 5}
-        if(InputManager.Keyboard.Key(40)){this._position.y += 5}
+    public Move(){
         
+        let move =
+
+        if(InputManager.Keyboard.Key(Key.LeftArrow) || InputManager.Keyboard.Key(Key.A)){
+            this._sprite.position.x -= 0.02;
+        } else if(InputManager.Keyboard.Key(Key.RightArrow) || InputManager.Keyboard.Key(Key.D)){
+            this._sprite.position.x += 0.02;
+        }
+
+
     }
 
     public shot(){}
@@ -54,35 +53,14 @@ export default class Player{
         if(InputManager.Keyboard.Key(51)){this.classe.skill3()}
     }
 
-    public Update(){};
-
-    get x(){
-        return this._position.x;
-    }
-
-    get y(){
-        return this._position.y;
-    }
-
-    set x(p_x: number){
-        this._position.x = p_x
-    }
-
-    set y(p_y: number){
-        this._position.y = p_y
-    }
-
-    get width(){
-        return this._size.x
-    }
-
-    get height(){
-        return this._size.y
-    }
-
-    get angle(){
-        return this._angle
-    }
+    get x()      { return this._sprite.position.x;  };
+    get y()      { return this._sprite.position.y;  };
+    get width()  { return this._sprite.size.x;      };
+    get height() { return this._sprite.size.y;      };
+    get angle()  { return this._sprite.angle;       };
+    
+    set x(p_x: number){ this._sprite.position.x = p_x; }
+    set y(p_y: number){ this._sprite.position.y = p_y; }
     
 
 };
