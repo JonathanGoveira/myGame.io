@@ -57,7 +57,6 @@ export default class SceneGameplay extends AbstractScene{
 
     public HandleEvent(): void {
         InputManager.Mouse.Process()
-        this._player1.move();
         this._player1.skills()
         
         //console.log("corno")

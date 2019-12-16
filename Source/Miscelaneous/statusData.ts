@@ -1,6 +1,6 @@
 export let statusData = {
     "Attacker": {
-        "speed": 10,
+        "speed": 0.02,
         "armor": 30,
         "life": 300,
         "damage": 50,
@@ -10,7 +10,7 @@ export let statusData = {
     },
 
     "Defender": {
-        "speed": 6,
+        "speed":0.02,
         "armor": 60,
         "life": 600,
         "damage": 30,
@@ -20,7 +20,7 @@ export let statusData = {
     }, 
 
     "Support": {
-        "speed": 12,
+        "speed": 0.02,
         "armor": 35,
         "life": 600,
         "damage": 30,

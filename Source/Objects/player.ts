@@ -21,7 +21,9 @@ export default class Player{
 
     };
 
-    public Update(){};
+    public Update(){
+        this.Move();
+    };
     public Render(){ this._sprite.RenderRect("blue"); };
 
     public limitsPlayer(background: Background){
@@ -34,14 +36,10 @@ export default class Player{
 
     public Move(){
         
-        let move =
-
-        if(InputManager.Keyboard.Key(Key.LeftArrow) || InputManager.Keyboard.Key(Key.A)){
-            this._sprite.position.x -= 0.02;
-        } else if(InputManager.Keyboard.Key(Key.RightArrow) || InputManager.Keyboard.Key(Key.D)){
-            this._sprite.position.x += 0.02;
-        }
-
+        let horizontal: number = +InputManager.Keyboard.Key(Key.D) - +InputManager.Keyboard.Key(Key.A);
+        let vertical:   number = +InputManager.Keyboard.Key(Key.W) - +InputManager.Keyboard.Key(Key.S);
+        this._sprite.position.x += horizontal * this._status.speed;
+        this._sprite.position.y += vertical   * this._status.speed;
 
     }
 
