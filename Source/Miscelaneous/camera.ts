@@ -1,58 +1,55 @@
 import Background from "./background";
+import Vector2D from "../Utils/vectors";
 
 export default class Camera{
-    private _x: number;
-    private _y: number;
-    private _width: number;
-    private _height: number;
+    private _position: Vector2D
+    private _size: Vector2D
 
-    constructor(p_width: number, p_height: number){
-        this._x = 0;
-        this._y = 0
-        this._width = p_width;
-        this._height = p_height;
+    constructor(p_position: Vector2D){
+        this._position = Vector2D.Zero
+        this._size = p_position
     }
 
     public centerCamera(object: any){
-        this._x = (object.x - (this._width)/2);
-        this._y = (object.y - (this._height)/2);
+        this._position.x = (object.x - 1);
+        this._position.y = (object.y - 1);
     }
 
     public lerp(start: number, end: number, amt: number){
         return(1-amt)*start+amt*end
     }
     public lerpCamera(object: any){
-        this._x = this.lerp(this._x, object.x, 0.1)
-        this._y = this.lerp(this._y, object.y, 0.1)
+        this.x = this.lerp(this.x, object.x, 0.1)
+        this.y = this.lerp(this.y, object.y, 0.1)
     }
 
     public limitsCamera(background: Background){
-        if (this.x < 0) this.x = 0;
+        if (this.x < -1) this.x = -1;
         if (this.x + this.width > background.width) this.x = background.width - this.width;
-        if (this.y < 0) this.y = 0;
+        if (this.y < -1) this.y = -1;
         if (this.y + this.height > background.height) this.y = background.height - this.height;
     }
 
     get width(){
-        return this._width;
+        return this._size.w;
     }
     get height(){
-        return this._height;
+        return this._size.h;
     }
     
     get x(){
-        return this._x;
+        return this._position.x;
     }
 
     get y(){
-        return this._y;
+        return this._position.y;
     }
 
     set x(p_x: number){
-        this._x = p_x
+        this._position.x = p_x
     }
 
     set y(p_y: number){
-        this._y = p_y;
+        this._position.y = p_y;
     }
 }

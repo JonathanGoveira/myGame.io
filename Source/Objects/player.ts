@@ -17,7 +17,7 @@ export default class Player{
         this._status = p_status;
         this._sprite = new Sprite(this._status.sprite);
         this._sprite.position = Vector2D.Zero;
-        this._sprite.size     = new Vector2D(0.2,0.2);
+        this._sprite.size     = new Vector2D(0.1,0.2);
 
     };
 
@@ -26,10 +26,11 @@ export default class Player{
     };
     public Render(){ this._sprite.RenderRect("blue"); };
 
-    public limitsPlayer(background: Background){
-        if ((this.x - this.width/2) < 0) this.x = (this.width/2);
+    public limitsPlayer(background: any){
+        console.log(this.x - this.width/2)
+        if ((this.x - this.width/2) < -background.width) this.x = -background.width+this.width/2;
         if (this.x + this.width/2 > background.width) this.x = background.width - this.width/2;
-        if ((this.y - this.height/2) < 0) this.y = this.height/2;
+        if ((this.y - this.height/2) < -background.height) this.y = -background.height + this.height/2;
         if (this.y + this.height/2 > background.height) this.y = background.height - this.height/2;
     }
 

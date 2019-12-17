@@ -5,10 +5,12 @@ import Camera from "../Miscelaneous/camera";
 import Attacker from "../Objects/attacker";
 import Support from "../Objects/support";
 import InputManager from "../Input/manager.input";
-import { MB } from "../Config/keycode.cfg";
+import { MB, Key } from "../Config/keycode.cfg";
 import Defender from "../Objects/defender";
 import {statusData} from "../Miscelaneous/statusData"
 import Game from "../Core/game";
+import { math } from "../Utils/math";
+import Vector2D from "../Utils/vectors";
 
 
 export default class SceneGameplay extends AbstractScene{
@@ -22,8 +24,8 @@ export default class SceneGameplay extends AbstractScene{
 
     constructor(){
         super();
-        this._backGround = new Background(0,0,2000, 2000);
-        this._camera = new Camera(Game.Size.w, Game.Size.h);
+        this._backGround = new Background();
+        this._camera = new Camera(math.screen.toNormalize(new Vector2D(Game.Size.w, Game.Size.h)));
         //this._camera.centerCamera(this._backGround);
         this._player1 = new Player(new Attacker(), statusData.Attacker);
         this._player2 = new Player(new Defender(), statusData.Defender);
@@ -59,7 +61,7 @@ export default class SceneGameplay extends AbstractScene{
         InputManager.Mouse.Process()
         this._player1.skills()
         
-        //console.log("corno")
+        
         // if(this.scene.key === 49){
         //     this.pl = new Player(new Attacker(new Vector2D(this.canvas.width * 0.5, this.canvas.height * 0.5),50, 50, this.ctx));
         // };
@@ -78,21 +80,24 @@ export default class SceneGameplay extends AbstractScene{
         if (InputManager.Mouse.ButtonPressed(MB.Left)) {console.log("clickado")}
         if (InputManager.Mouse.ButtonReleased(MB.Left)) {console.log("Desclickado")}
         // Shift + 1 ou 2 ou 3 retorna os baseStatus das classes
-        if(InputManager.Keyboard.Key(16) && InputManager.Keyboard.Key(49)){console.log(this._player1._status)}
-        if(InputManager.Keyboard.Key(16) && InputManager.Keyboard.Key(50)){console.log(this._player2._status)}
-        if(InputManager.Keyboard.Key(16) && InputManager.Keyboard.Key(51)){console.log(this._player3._status)}
+        if(InputManager.Keyboard.Key(Key.Shift) && InputManager.Keyboard.Key(Key.One)){console.log(this._player1._status)}
+        if(InputManager.Keyboard.Key(Key.Shift) && InputManager.Keyboard.Key(Key.Two)){console.log(this._player2._status)}
+        if(InputManager.Keyboard.Key(Key.Shift) && InputManager.Keyboard.Key(Key.Three)){console.log(this._player3._status)}
         // atualiza a posição da camera em relação ao player
-        
+    
+        //this._camera.centerCamera(this._backGround)
         this._camera.centerCamera(this._player1);
-        this._camera.limitsCamera(this._backGround);
+        //this._camera.limitsCamera(this._backGround);
         this._player1.limitsPlayer(this._backGround);
         if(InputManager.Keyboard.Key(13)){this._camera.centerCamera(this._player2)}
     };
 
     public Render(): void {
+        let camera = math.screen.toPixels(new Vector2D(this._camera.x, this._camera.y))
         Game.ctx.save();
-        Game.ctx.translate(-this._camera.x,-this._camera.y);
-        this._backGround.CreateBackground();
+        Game.ctx.translate(-camera.x, camera.y)
+        this._backGround.render()
+        //this._backGround.CreateBackground();
         this._player1.Render();
         this._player2.Render();
         this._player3.Render();

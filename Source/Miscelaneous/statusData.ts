@@ -1,6 +1,6 @@
 export let statusData = {
     "Attacker": {
-        "speed": 0.02,
+        "speed": 0.015,
         "armor": 30,
         "life": 300,
         "damage": 50,
