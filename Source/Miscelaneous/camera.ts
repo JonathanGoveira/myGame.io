@@ -24,10 +24,12 @@ export default class Camera{
     }
 
     public limitsCamera(background: Background){
-        if (this.x < -1) this.x = -1;
-        if (this.x + this.width > background.width) this.x = background.width - this.width;
-        if (this.y < -1) this.y = -1;
-        if (this.y + this.height > background.height) this.y = background.height - this.height;
+        //console.log("camera "+(this.x))
+        //console.log("background "+background.width)
+        if (this.x  < -(background.width)) this.x = -background.width;
+        if ((this.x + this.width)*background.width > background.width) this.x = background.width - this.height*background.width;
+        if (this.y  < -background.height) this.y = -background.height;
+        if ((this.y + this.height)*background.height > background.height) this.y = background.height - this.height*background.height;
     }
 
     get width(){

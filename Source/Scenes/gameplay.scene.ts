@@ -18,7 +18,7 @@ export default class SceneGameplay extends AbstractScene{
     private _backGround: Background;
     private _player1: Player;
     private _player2: Player;
-    private _player3: Player;
+    //private _player3: Player;
     private _camera: Camera;
     
 
@@ -29,7 +29,7 @@ export default class SceneGameplay extends AbstractScene{
         //this._camera.centerCamera(this._backGround);
         this._player1 = new Player(new Attacker(), statusData.Attacker);
         this._player2 = new Player(new Defender(), statusData.Defender);
-        this._player3 = new Player(new Support(),  statusData.Support);
+        //this._player3 = new Player(new Support(),  statusData.Support);
 
         window.addEventListener("keydown", (ev: Event) => {
             //@ts-ignore
@@ -82,14 +82,18 @@ export default class SceneGameplay extends AbstractScene{
         // Shift + 1 ou 2 ou 3 retorna os baseStatus das classes
         if(InputManager.Keyboard.Key(Key.Shift) && InputManager.Keyboard.Key(Key.One)){console.log(this._player1._status)}
         if(InputManager.Keyboard.Key(Key.Shift) && InputManager.Keyboard.Key(Key.Two)){console.log(this._player2._status)}
-        if(InputManager.Keyboard.Key(Key.Shift) && InputManager.Keyboard.Key(Key.Three)){console.log(this._player3._status)}
+        //if(InputManager.Keyboard.Key(Key.Shift) && InputManager.Keyboard.Key(Key.Three)){console.log(this._player3._status)}
         // atualiza a posição da camera em relação ao player
-    
-        //this._camera.centerCamera(this._backGround)
+        
         this._camera.centerCamera(this._player1);
-        //this._camera.limitsCamera(this._backGround);
+        this._camera.limitsCamera(this._backGround);
         this._player1.limitsPlayer(this._backGround);
         if(InputManager.Keyboard.Key(13)){this._camera.centerCamera(this._player2)}
+        if(InputManager.Keyboard.Key(Key.Ctrl)){
+            console.log("player "+this._player1.x)
+            console.log("camera "+((this._camera.x + this._camera.width)*this._backGround.width))
+            console.log("background "+this._backGround.width)
+        }
     };
 
     public Render(): void {
@@ -100,7 +104,7 @@ export default class SceneGameplay extends AbstractScene{
         //this._backGround.CreateBackground();
         this._player1.Render();
         this._player2.Render();
-        this._player3.Render();
+        //this._player3.Render();
         Game.ctx.restore();
     };
 

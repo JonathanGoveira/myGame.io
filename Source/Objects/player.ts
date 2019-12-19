@@ -27,11 +27,10 @@ export default class Player{
     public Render(){ this._sprite.RenderRect("blue"); };
 
     public limitsPlayer(background: any){
-        console.log(this.x - this.width/2)
-        if ((this.x - this.width/2) < -background.width) this.x = -background.width+this.width/2;
-        if (this.x + this.width/2 > background.width) this.x = background.width - this.width/2;
-        if ((this.y - this.height/2) < -background.height) this.y = -background.height + this.height/2;
-        if (this.y + this.height/2 > background.height) this.y = background.height - this.height/2;
+        if ((this.x - this.width) < -(background.width)) this.x = -background.width+this.width;
+        if (this.x + this.width > background.width) this.x = background.width - this.width;
+        if ((this.y - this.height) < -background.height) this.y = -background.height + this.height;
+        if (this.y + this.height > background.height) this.y = background.height - this.height;
     }
 
 
