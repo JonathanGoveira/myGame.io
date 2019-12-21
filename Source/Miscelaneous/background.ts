@@ -7,6 +7,8 @@ export default class Background {
     // private _y: number;
     // private _width: number;
     // private _height: number;
+    public rectX: Array<number> = new Array(50)
+    public rectY: Array<number> = new Array(50)
     private _sprite: Sprite
 
      constructor() {
@@ -42,9 +44,17 @@ export default class Background {
     // }
 
     public render(){this._sprite.RenderRect("silver")}
-    get width(){
-        return this._sprite.size.x;
+
+    public Rects(){
+        for (let i=0; i<this.rectX.length; i++){
+            this.rectX[i] = Math.random() * (Game.Size.w - 0)
+            this.rectY[i] = Math.random() * (Game.Size.h - 0)
+        }
     }
+
+    get RectX(){return this.rectX}
+    get RectY(){return this.rectY}
+    get width(){return this._sprite.size.x;}
     get height(){
         return this._sprite.size.y;
     }

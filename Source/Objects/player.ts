@@ -4,6 +4,8 @@ import InputManager from "../Input/manager.input";
 import { BaseStatus } from "../Miscelaneous/baseStatus";
 import Sprite from "../Miscelaneous/sprite";
 import { Key } from "../Config/keycode.cfg";
+import { physics } from "../Utils/physics";
+import { math } from "../Utils/math";
 
 export default class Player{
     //@ts-ignore
@@ -17,17 +19,22 @@ export default class Player{
         this._status = p_status;
         this._sprite = new Sprite(this._status.sprite);
         this._sprite.position = Vector2D.Zero;
-        this._sprite.size     = new Vector2D(0.1,0.2);
+        this._sprite.size     = new Vector2D(0.1,0.1);
 
     };
 
     public Update(){
-        this.Move();
+        // this.Move();
+        this.moveMouse();
+        // physics.Acceleration(this._sprite.angle, this);
+        physics.Speed(this._sprite.angle,this)
+        // console.log(this._sprite.angle)
+
     };
     public Render(){ this._sprite.RenderRect("blue"); };
 
     public limitsPlayer(background: any){
-        if ((this.x - this.width) < -(background.width)) this.x = -background.width+this.width;
+        if ((this.x - this.width) < -background.width) this.x = -background.width+this.width;
         if (this.x + this.width > background.width) this.x = background.width - this.width;
         if ((this.y - this.height) < -background.height) this.y = -background.height + this.height;
         if (this.y + this.height > background.height) this.y = background.height - this.height;
@@ -38,9 +45,18 @@ export default class Player{
         
         let horizontal: number = +InputManager.Keyboard.Key(Key.D) - +InputManager.Keyboard.Key(Key.A);
         let vertical:   number = +InputManager.Keyboard.Key(Key.W) - +InputManager.Keyboard.Key(Key.S);
-        this._sprite.position.x += horizontal * this._status.speed;
-        this._sprite.position.y += vertical   * this._status.speed;
+        // this._sprite.position.x += horizontal * this._status.speed;
+        // this._sprite.position.y += vertical   * this._status.speed;
 
+    }
+    public moveMouse(){
+        let coord: Vector2D = math.screen.toPixels(new Vector2D(this.x, this.y))
+        let dx: number = InputManager.Mouse.location.x - coord.x
+        let dy: number = InputManager.Mouse.location.y - coord.y
+        this._sprite.angle = Math.atan2(dy, dx)
+    }
+
+    public Acceleration(){
     }
 
     public shot(){}
