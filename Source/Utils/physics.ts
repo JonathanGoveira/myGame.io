@@ -9,21 +9,21 @@ export namespace physics {
     let coord: Vector2D = Vector2D.Zero
     let angulo: number
     
-    export function Acceleration(angle: number, obj: any) {
+    export function Acceleration(angle: number) {
         coord = math.screen.toNormalize(new Vector2D(accel.x, accel.y))
-        angulo = math.angle.toRadians(angle)
+        angulo = math.angle.toDegree(angle)
         if (InputManager.Keyboard.Key(Key.G)) {
-            coord.x = Math.cos(angle) * 0.0005
-            coord.y = Math.sin(angle) * 0.0005
-        } else { coord.x = coord.y = 0 }
-        console.log("angulo"+angle)
-        return coord
+            accel.x = Math.cos(angle) * 0.0005
+            accel.y = Math.sin(angle) * 0.0005
+        } else { accel.x = accel.y = 0 }
+        console.log("angulo"+angulo)
+        return accel
     }
     export function Speed(angle: number, obj: any){
-        Acceleration(angle, obj)
+        Acceleration(angle)
         // console.log(coord.x)
-        speed.x += coord.x
-        speed.y += coord.y
+        speed.x += accel.x
+        speed.y += accel.y
         obj.x += speed.x
         obj.y += speed.y
        

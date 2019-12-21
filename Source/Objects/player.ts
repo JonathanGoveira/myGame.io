@@ -25,9 +25,9 @@ export default class Player{
 
     public Update(){
         // this.Move();
+        physics.Speed(this._sprite.angle,this)
         this.moveMouse();
         // physics.Acceleration(this._sprite.angle, this);
-        physics.Speed(this._sprite.angle,this)
         // console.log(this._sprite.angle)
 
     };
@@ -50,10 +50,12 @@ export default class Player{
 
     }
     public moveMouse(){
+        let coord2: Vector2D = math.screen.toNormalize(new Vector2D(InputManager.Mouse.location.x, InputManager.Mouse.location.y))
         let coord: Vector2D = math.screen.toPixels(new Vector2D(this.x, this.y))
-        let dx: number = InputManager.Mouse.location.x - coord.x
-        let dy: number = InputManager.Mouse.location.y - coord.y
+        let dx: number = coord2.x - this.x
+        let dy: number = coord2.y - this.y
         this._sprite.angle = Math.atan2(dy, dx)
+        if (InputManager.Keyboard.Key(Key.A)){this._sprite.angle += 1}
     }
 
     public Acceleration(){
